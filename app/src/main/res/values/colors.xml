@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4d8eff</color>
+    <color name="colorPrimaryDark">#4d8eff</color>
+    <color name="colorAccent">#00c3ff</color>
+    <color name="on_swiped_background">#E6E8E8</color>
+    <color name="gradient_end_blue">#00c3ff</color>
+
+    <color name="white">#ffffff</color>
+    <color name="blue">#7ae7c7</color>
+    <color name="yellow">#fff689</color>
+    <color name="pink">#fcc0f6</color>
+    <color name="green">#d6ffb7</color>
+
+    <array name="demo_colors">
+        <item>@color/white</item>
+        <item>@color/blue</item>
+        <item>@color/yellow</item>
+        <item>@color/pink</item>
+        <item>@color/green</item>
+    </array>
+</resources>
