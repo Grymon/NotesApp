@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(AddEditNoteActivity.EXTRA_DESCRIPTION, note.getDescription());
                 intent.putExtra(AddEditNoteActivity.EXTRA_PRIORITY, note.getPriority());
                 intent.putExtra(AddEditNoteActivity.EXTRA_COLOR, note.getColor());
+                intent.putExtra(AddEditNoteActivity.EXTRA_CREATED_AT, note.getCreatedAt());
+                intent.putExtra(AddEditNoteActivity.EXTRA_LAST_UPDATED, note.getCreatedAt());
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
         });
@@ -122,8 +125,10 @@ public class MainActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditNoteActivity.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1);
             int color = data.getIntExtra(AddEditNoteActivity.EXTRA_COLOR, 1);
+            String createdAt = data.getStringExtra(AddEditNoteActivity.EXTRA_CREATED_AT);
+            String lastUpdated = data.getStringExtra(AddEditNoteActivity.EXTRA_LAST_UPDATED);
 
-            Note note = new Note(title, description, priority, color);
+            Note note = new Note(title, description, priority, color, createdAt, lastUpdated);
             noteViewModel.insert(note);
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
@@ -137,8 +142,10 @@ public class MainActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditNoteActivity.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1);
             int color = data.getIntExtra(AddEditNoteActivity.EXTRA_COLOR, 1);
+            String createdAt = data.getStringExtra(AddEditNoteActivity.EXTRA_CREATED_AT);
+            String lastUpdated = data.getStringExtra(AddEditNoteActivity.EXTRA_LAST_UPDATED);
 
-            Note note = new Note(title,description,priority,color);
+            Note note = new Note(title,description,priority,color, createdAt, lastUpdated);
             note.setId(id);
             noteViewModel.update(note);
             Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();

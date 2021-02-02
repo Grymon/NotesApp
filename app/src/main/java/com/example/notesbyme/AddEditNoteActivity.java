@@ -11,9 +11,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thebluealliance.spectrum.SpectrumPalette;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AddEditNoteActivity extends AppCompatActivity {
 
@@ -22,10 +26,14 @@ public class AddEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_DESCRIPTION = "com.example.notes.EXTRA_DESCRIPTION";
     public static final String EXTRA_PRIORITY = "com.example.notes.EXTRA_PRIORITY";
     public static final String EXTRA_COLOR = "com.example.notes.EXTRA_COLOR";
+    public static final String EXTRA_CREATED_AT = "com.example.notes.EXTRA_CREATED_AT";
+    public static final String EXTRA_LAST_UPDATED = "com.example.notes.EXTRA_LAST_UPDATED";
 
     private EditText editTextTitle;
     private EditText editTextDescription;
     private NumberPicker numberPickerPriority;
+    private TextView textViewCreatedAt;
+    private TextView textViewLastUpdated;
     private SpectrumPalette palette;
     private int color;
 
@@ -41,6 +49,8 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextDescription = findViewById(R.id.edit_text_description);
+        textViewCreatedAt = findViewById(R.id.created_at);
+        textViewLastUpdated = findViewById(R.id.last_updated);
         numberPickerPriority = findViewById(R.id.number_picker_priority);
         palette = findViewById(R.id.palette);
 
@@ -67,6 +77,8 @@ public class AddEditNoteActivity extends AppCompatActivity {
             setTitle("Edit note");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            textViewCreatedAt.setText("Created at: " + intent.getStringExtra(EXTRA_LAST_UPDATED));
+            textViewLastUpdated.setText("Last updated: " +  intent.getStringExtra(EXTRA_LAST_UPDATED));
             numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
             palette.setSelectedColor(intent.getIntExtra(EXTRA_COLOR,1));
         } else {
@@ -75,8 +87,13 @@ public class AddEditNoteActivity extends AppCompatActivity {
     }
 
     private void saveNote() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate today = LocalDate.now();
+
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
+        String createdAt = dtf.format(today);
+        String lastUpdated = dtf.format(today);
         int priority = numberPickerPriority.getValue();
         int color = this.color;
 
@@ -90,10 +107,13 @@ public class AddEditNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DESCRIPTION, description);
         data.putExtra(EXTRA_PRIORITY, priority);
         data.putExtra(EXTRA_COLOR, color);
+        data.putExtra(EXTRA_CREATED_AT, createdAt);
+        data.putExtra(EXTRA_LAST_UPDATED, lastUpdated);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1){
             data.putExtra(EXTRA_ID, id);
+            data.putExtra(EXTRA_LAST_UPDATED, dtf.format(LocalDate.now()));
         }
 
         setResult(RESULT_OK, data);

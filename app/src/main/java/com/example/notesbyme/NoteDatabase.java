@@ -9,7 +9,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = Note.class, version = 1)
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+@Database(entities = Note.class, version = 2)
 public abstract class NoteDatabase extends RoomDatabase {
 
     private static NoteDatabase instance;
@@ -41,7 +44,9 @@ public abstract class NoteDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Note1", "Desc1", 1, -1));
+            LocalDate today = LocalDate.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            noteDao.insert(new Note("Note1", "Desc1", 1, -1, dtf.format(today), dtf.format(today)));
             return null;
         }
     }
