@@ -77,7 +77,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
             setTitle("Edit note");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            textViewCreatedAt.setText("Created at: " + intent.getStringExtra(EXTRA_LAST_UPDATED));
+            textViewCreatedAt.setText("Created at: " + intent.getStringExtra(EXTRA_CREATED_AT));
             textViewLastUpdated.setText("Last updated: " +  intent.getStringExtra(EXTRA_LAST_UPDATED));
             numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
             palette.setSelectedColor(intent.getIntExtra(EXTRA_COLOR,1));
@@ -93,7 +93,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         String createdAt = dtf.format(today);
-        String lastUpdated = dtf.format(today);
         int priority = numberPickerPriority.getValue();
         int color = this.color;
 
@@ -108,7 +107,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
         data.putExtra(EXTRA_PRIORITY, priority);
         data.putExtra(EXTRA_COLOR, color);
         data.putExtra(EXTRA_CREATED_AT, createdAt);
-        data.putExtra(EXTRA_LAST_UPDATED, lastUpdated);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1){

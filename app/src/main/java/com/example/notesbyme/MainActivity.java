@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(AddEditNoteActivity.EXTRA_PRIORITY, note.getPriority());
                 intent.putExtra(AddEditNoteActivity.EXTRA_COLOR, note.getColor());
                 intent.putExtra(AddEditNoteActivity.EXTRA_CREATED_AT, note.getCreatedAt());
-                intent.putExtra(AddEditNoteActivity.EXTRA_LAST_UPDATED, note.getCreatedAt());
+                intent.putExtra(AddEditNoteActivity.EXTRA_LAST_UPDATED, note.getLastUpdated());
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
         });
@@ -126,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
             int priority = data.getIntExtra(AddEditNoteActivity.EXTRA_PRIORITY, 1);
             int color = data.getIntExtra(AddEditNoteActivity.EXTRA_COLOR, 1);
             String createdAt = data.getStringExtra(AddEditNoteActivity.EXTRA_CREATED_AT);
-            String lastUpdated = data.getStringExtra(AddEditNoteActivity.EXTRA_LAST_UPDATED);
+//            String lastUpdated = data.getStringExtra(AddEditNoteActivity.EXTRA_LAST_UPDATED);
 
-            Note note = new Note(title, description, priority, color, createdAt, lastUpdated);
+            Note note = new Note(title, description, priority, color, createdAt, "");
             noteViewModel.insert(note);
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
